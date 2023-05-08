@@ -30,16 +30,16 @@ jobs:
             cargo build -r && (
               broot_build:info "cargo build success"
               curl -LO https://github.com/Canop/broot/releases/download/v1.21.3/broot_1.21.3.zip
-              unzip broot_1.21.3.zip
-              mkdir -p broot_1.21.3/x86_64-apple-darwin
-              mv target/release/broot broot_1.21.3/x86_64-apple-darwin/
+              unzip -y broot_1.21.3.zip
+              mkdir -p x86_64-apple-darwin
+              mv target/release/broot x86_64-apple-darwin/
               
               broot_build:info "$(pwd)"
               broot_build:info "$(ls -lha)"
 
-              tar -Jcvf x86_64-linux.tar.xz broot_1.21.3/x86_64-linux/broot
-              tar -Jcvf x86_64-apple-darwin.tar.xz broot_1.21.3/x86_64-apple-darwin/broot
-              tar -Jcvf x86_64-pc-windows-gnu.tar.xz broot_1.21.3/x86_64-pc-windows-gnu/broot
+              tar -Jcvf x86_64-linux.tar.xz x86_64-linux/broot
+              tar -Jcvf x86_64-apple-darwin.tar.xz x86_64-apple-darwin/broot
+              tar -Jcvf x86_64-pc-windows-gnu.tar.xz x86_64-pc-windows-gnu/broot
               
               git clone git@github.com:broot.git
               cd broot && {
