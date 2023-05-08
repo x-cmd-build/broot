@@ -33,11 +33,13 @@ jobs:
               unzip broot_1.21.3.zip
               mkdir -p broot_1.21.3/x86_64-apple-darwin
               mv target/release/broot broot_1.21.3/x86_64-apple-darwin/
-              tar -Jcvf x86_64-linux.tar.xz broot_1.21.3/x86_64-linux
-              tar -Jcvf x86_64-apple-darwin.tar.xz broot_1.21.3/x86_64-apple-darwin
-              tar -Jcvf x86_64-pc-windows-gnu.tar.xz broot_1.21.3/x86_64-pc-windows-gnu
               
-              broot_build:info "$(ls)"
+              broot_build:info "$(pwd)"
+              broot_build:info "$(ls -lha)"
+
+              tar -Jcvf x86_64-linux.tar.xz broot_1.21.3/x86_64-linux/broot
+              tar -Jcvf x86_64-apple-darwin.tar.xz broot_1.21.3/x86_64-apple-darwin/broot
+              tar -Jcvf x86_64-pc-windows-gnu.tar.xz broot_1.21.3/x86_64-pc-windows-gnu/broot
               
               git clone git@github.com:broot.git
               cd broot && {
