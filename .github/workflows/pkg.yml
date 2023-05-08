@@ -24,18 +24,21 @@ jobs:
         with:
           code: |
             x gh token $github_token
+            x log init broot_build
             git clone https://github.com/Canop/broot.git
             cd broot
             cargo build -r && (
+              broot_build:info "cargo build success"
               curl -LO https://github.com/Canop/broot/releases/download/v1.21.3/broot_1.21.3.zip
               unzip broot_1.21.3.zip
               mkdir -p broot_1.21.3/x86_64-apple-darwin
               mv target/release/broot broot_1.21.3/x86_64-apple-darwin/
-              
               tar -Jcvf x86_64-linux.tar.xz broot_1.21.3/x86_64-linux
               tar -Jcvf x86_64-apple-darwin.tar.xz broot_1.21.3/x86_64-apple-darwin
               tar -Jcvf x86_64-pc-windows-gnu.tar.xz broot_1.21.3/x86_64-pc-windows-gnu
-
+              
+              broot_build:info "$(ls)"
+              
               git clone git@github.com:broot.git
               cd broot && {
                 git tag $tag
@@ -43,6 +46,7 @@ jobs:
               }
 
               release_id="$(x gh repo release create --tag $tag -j --repo x-cmd-build/broot | x jo .id)"
-              x gh repo release attachment upload --repo x-cmd-build/broot --release_id "${release_id}" x86_64-linux.tar.xz \
-                x86_64-apple-darwin.tar.xz  x86_64-pc-windows-gnu.tar.xz 
+              x gh repo release attachment upload --repo x-cmd-build/broot --release_id "${release_id}" x86_64-linux.tar.xz 
+              x gh repo release attachment upload --repo x-cmd-build/broot --release_id "${release_id}" x86_64-apple-darwin.tar.xz  
+              x gh repo release attachment upload --repo x-cmd-build/broot --release_id "${release_id}" x86_64-pc-windows-gnu.tar.xz 
             )
