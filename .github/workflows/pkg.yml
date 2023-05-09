@@ -30,7 +30,7 @@ jobs:
             cargo build -r && (
               broot_build:info "cargo build success"
               curl -LO https://github.com/Canop/broot/releases/download/v1.21.3/broot_1.21.3.zip
-              unzip -y broot_1.21.3.zip
+              unzip broot_1.21.3.zip
               mkdir -p x86_64-apple-darwin
               mv target/release/broot x86_64-apple-darwin/
               
